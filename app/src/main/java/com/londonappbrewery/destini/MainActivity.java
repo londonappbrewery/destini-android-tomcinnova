@@ -81,6 +81,14 @@ public class MainActivity extends AppCompatActivity {
         initializeStoryTextMap();
         initializeStoryStateMaps();
 
+        if (savedInstanceState != null) {
+            StoryState previousStoryState = (StoryState)savedInstanceState.get("mStoryState");
+            if (previousStoryState != null) {
+                mStoryState = previousStoryState;
+                updateStoryText();
+            }
+        }
+
     }
 
     private void initializeStoryTextMap() {
@@ -123,6 +131,12 @@ public class MainActivity extends AppCompatActivity {
         bottomStoryStateMap.put(StoryState.t2, StoryState.t4);
         bottomStoryStateMap.put(StoryState.t3, StoryState.t5);
 
+    }
+
+    @Override
+    protected void onSaveInstanceState(Bundle outState) {
+        outState.putSerializable("mStoryState",mStoryState);
+        super.onSaveInstanceState(outState);
     }
 
     private void updateStoryText() {
